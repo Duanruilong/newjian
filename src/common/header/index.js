@@ -4,6 +4,7 @@ import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper} 
 class Header extends Component {
 
     render() {
+      const { handleInputBlur, handleInputFocus, list} = this.props;
       return(
         <HeaderWrapper>
           <Logo></Logo>
@@ -16,7 +17,11 @@ class Header extends Component {
             </NavItem>
             <SearchWrapper>
 
-              <NavSearch></NavSearch>
+              <NavSearch 
+                className={'focused'}
+                onFocus={() => handleInputFocus(list)}
+                onBlur={handleInputBlur}
+              ></NavSearch>
               <i className="iconfont zoom">&#xe782;</i>
 
             </SearchWrapper>
@@ -39,4 +44,18 @@ class Header extends Component {
     }
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     list: state.getIn(['header', 'list']),
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return {
+//     handleInputFocus: (list) => {
+
+//       dispatch(actionCreator)
+//     }
+//   }
+// }
 export default Header;
