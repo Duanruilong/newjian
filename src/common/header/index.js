@@ -17,7 +17,7 @@ class Header extends Component {
             <SearchWrapper>
 
               <NavSearch></NavSearch>
-              <i className="iconfont zoom">&#xe636;</i>
+              <i className="iconfont zoom">&#xe782;</i>
 
             </SearchWrapper>
           </Nav>

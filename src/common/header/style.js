@@ -27,7 +27,7 @@ export const Nav = styled.div`
     padding-left: 70px;
     box-sizing: border-box;
     margin: 0 auto;
-    // background-color:cyan
+    /* background-color:cyan */
 `;
 
 export const NavItem = styled.div`
@@ -100,7 +100,7 @@ export const Button = styled.div`
     line-height: 38px;
     border-radius: 19px;
     border: 1px solid #ec6149;
-    font-siz: 14px;
+    font-size: 14px;
     &.reg {
 		color: #ec6149;
     }
@@ -109,3 +109,5 @@ export const Button = styled.div`
 		background: #ec6149;
 	}
 `;
+
+

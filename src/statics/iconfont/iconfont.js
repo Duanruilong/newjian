@@ -1,7 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-
-
-createGlobalStyle`
+import { injectGlobal } from 'styled-components';
+injectGlobal`
   @font-face {font-family: "iconfont";
     src: url('./iconfont.eot?t=1552323188096'); /* IE9 */
     src: url('./iconfont.eot?t=1552323188096#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -10,7 +8,6 @@ createGlobalStyle`
     url('./iconfont.ttf?t=1552323188096') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
     url('./iconfont.svg?t=1552323188096#iconfont') format('svg'); /* iOS 4.1- */
   }
-
   .iconfont {
     font-family: "iconfont" !important;
     font-size: 16px;
