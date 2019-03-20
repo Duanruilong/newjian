@@ -2,7 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import {actionCreators} from './store'
-import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper} from './style';
+import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper,SearchInfo,SearchInfoTitle,SearchInfoSwitch,
+	SearchInfoList,
+	SearchInfoItem,} from './style';
+
+
 
 const Header = (props)=>{
     const { handleInputBlur, handleInputFocus} = props;
@@ -29,7 +33,22 @@ const Header = (props)=>{
               ></NavSearch>
             </CSSTransition>
             <i className={props.focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe782;</i>
+            {
+              props.focused ? 
+              <SearchInfo>
+                <SearchInfoTitle>
+                  热门搜索
+                  <SearchInfoSwitch>换一批</SearchInfoSwitch>
+                </SearchInfoTitle>
+                <SearchInfoList>
+                  <SearchInfoItem>测试</SearchInfoItem>
 
+                </SearchInfoList>
+
+            </SearchInfo>
+            :
+            null
+            }
           </SearchWrapper>
         </Nav>
         <Addition>
