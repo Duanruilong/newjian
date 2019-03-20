@@ -1,20 +1,20 @@
 
 import * as constants from "./constants.js";
+import {fromJS} from 'immutable';
+// immutable 对象
+// set 方法，会结合之前immutable对象的值 和设置的值，返回一个新的对象（不会修改原来数据）
 
-const defaultState = {
+const defaultState = fromJS({
     focused:false,
-};
+});
 
 export default (state = defaultState, action)=>{
     if (action.type === constants.SEARCH_FOCUS) {
-        return {
-            focused:true
-        };
+        return state.set('focused',true)
     }
     if (action.type === constants.SEARCH_BLUR) {
-        return {
-            focused:false
-        };
+        return state.set('focused',false)
+
     }
     return state;
 }
