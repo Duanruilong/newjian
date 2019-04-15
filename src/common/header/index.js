@@ -10,21 +10,33 @@ import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper,S
 class Header extends Component {
 
   getListArea(){
-    if (this.props.focused) {
-      console.log('this.props.list',this.props.list);
+  const { focused, list, page, totalPage, mouseIn, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props;
+  const newList = list.toJS(); // immutable对象 转换
+  const pageList =[];
+    if (newList.length) {
+      for (let i = (page - 1) * 10; i < page*10; i++) {  // 取10条数据
+        pageList.push(
+          <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+        )
+      }
+    }
+
+    if (focused || mouseIn) {
+      console.log('list',list);
       
       return(
-        <SearchInfo>
+        <SearchInfo 
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
             <SearchInfoTitle>
               热门搜索
-              <SearchInfoSwitch>换一批</SearchInfoSwitch>
+              <SearchInfoSwitch 
+                onClick={()=>handleChangePage(page,totalPage,this.spinIcon)}
+              >换一批</SearchInfoSwitch>
             </SearchInfoTitle>
             <SearchInfoList>
-              {this.props.list.map((item)=>{
-                return(
-                  <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                )
-              })}
+              {pageList}
             </SearchInfoList>
         </SearchInfo>
       )
@@ -84,7 +96,10 @@ const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header','focused']),
     // focused: state.get('header').get('focused'),
-    list:state.getIn(['header','list'])
+    list:state.getIn(['header','list']),
+    mouseIn: state.getIn(['header', 'mouseIn']),
+    page: state.getIn(['header', 'page']),
+		totalPage: state.getIn(['header', 'totalPage']),
   }
 }
 
@@ -96,6 +111,19 @@ const mapDispathToProps = (dispatch, ownProps) => {
     },
     handleInputBlur(){
       dispatch(actionCreators.searchBlur());
+    },
+    handleMouseEnter(){ // 鼠标移入事件
+      dispatch(actionCreators.mouseEnter());
+    },
+    handleMouseLeave(){ // 鼠标移入事件
+      dispatch(actionCreators.mouseLeave());
+    },
+    handleChangePage(page,totalPage){
+      if (page < totalPage) {
+        dispatch(actionCreators.changePage(page + 1));
+      } else {
+        dispatch(actionCreators.changePage(1));
+      }
     }
   }
 }
