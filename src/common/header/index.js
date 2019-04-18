@@ -69,7 +69,7 @@ class Header extends Component {
               >
                 <NavSearch 
                   className={this.props.focused ? 'focused' : ''}
-                  onFocus={handleInputFocus}
+                  onFocus={()=>{handleInputFocus(list)}}
                   onBlur={handleInputBlur}
                 ></NavSearch>
               </CSSTransition>
@@ -108,9 +108,10 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch, ownProps) => {
   return {
-    handleInputFocus(){
+    handleInputFocus(list){
+      // 代码优化减少接口请求，没有数据时再请求
+      (list.length === 0) && dispatch(actionCreators.getlist())  
       dispatch(actionCreators.searchFocus());
-      dispatch(actionCreators.getlist())
     },
     handleInputBlur(){
       dispatch(actionCreators.searchBlur());
