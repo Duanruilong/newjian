@@ -22,7 +22,7 @@ class Header extends Component {
     }
 
     if (focused || mouseIn) {
-      console.log('list',list);
+      console.log(newList,'list===',list);
       
       return(
         <SearchInfo 
@@ -34,7 +34,6 @@ class Header extends Component {
               <SearchInfoSwitch 
                 onClick={()=>handleChangePage(page,totalPage,this.spinIcon)}>
                 <i ref={(icon)=>{this.spinIcon = icon}} className="iconfont spin">&#xe637;</i>
-
                 换一批
               </SearchInfoSwitch>
             </SearchInfoTitle>
@@ -49,7 +48,8 @@ class Header extends Component {
   }
 
     render(){
-      const { handleInputBlur, handleInputFocus} = this.props;
+      const { handleInputBlur, handleInputFocus,list} = this.props;
+      const newList = list.toJS(); // immutable对象 转换
 
       return(
         <HeaderWrapper>
@@ -69,7 +69,7 @@ class Header extends Component {
               >
                 <NavSearch 
                   className={this.props.focused ? 'focused' : ''}
-                  onFocus={()=>{handleInputFocus(list)}}
+                  onFocus={()=>{handleInputFocus(newList)}}
                   onBlur={handleInputBlur}
                 ></NavSearch>
               </CSSTransition>
@@ -110,6 +110,8 @@ const mapDispathToProps = (dispatch, ownProps) => {
   return {
     handleInputFocus(list){
       // 代码优化减少接口请求，没有数据时再请求
+      console.log('代码优化减少接口请',list);
+      
       (list.length === 0) && dispatch(actionCreators.getlist())  
       dispatch(actionCreators.searchFocus());
     },
