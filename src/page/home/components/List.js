@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import {ListItem,ListInfo} from '../style';
-// import { actionCreators } from '../store';
+import {ListItem,ListInfo,LoadMore} from '../style';
+import { actionCreators } from '../store';
 // import { Link } from 'react-router-dom';
 
 class List extends PureComponent {
@@ -22,7 +22,8 @@ class List extends PureComponent {
 						)
 					})
 				}
-				
+				<LoadMore onClick={() => getMoreList(page)}>更多文字</LoadMore>
+
 			</div>
 		)
 	}
@@ -30,13 +31,13 @@ class List extends PureComponent {
 
 const mapState = (state) => ({
 	list: state.getIn(['home', 'articleList']),
-	// page: state.getIn(['home', 'articlePage'])
+	page: state.getIn(['home', 'articlePage'])
 });
 
 const mapDispatch = (dispatch) => ({
-	// getMoreList(page) {
-	// 	dispatch(actionCreators.getMoreList(page))
-	// }
+	getMoreList(page) {
+		dispatch(actionCreators.getMoreList(page))
+	}
 })
 
 export default connect(mapState, mapDispatch)(List);
