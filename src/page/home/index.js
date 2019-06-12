@@ -14,6 +14,10 @@ import { actionCreators } from './store';
 
 class Home extends PureComponent {
 
+  handleScrollTop(){
+		window.scrollTo(0,0)
+	}
+
   render() {
       return(
           <HomeWrapper>
@@ -35,8 +39,16 @@ class Home extends PureComponent {
 
   componentDidMount() {
     this.props.changeHomeData();
+		this.bindEvents()
 	}
 
+	componentWillUnmount(){
+		window.removeEventListener('scroll',this.props.changeScrollTopShow)
+	}
+
+	bindEvents(){
+		window.addEventListener('scroll',this.props.changeScrollTopShow)
+	}
 
 }
 
@@ -49,6 +61,15 @@ const mapState = (state) =>({
 const mapDispath = (dispath)=>({
     changeHomeData(){
 			dispath(actionCreators.getHomeinfo())
+		},
+		changeScrollTopShow(){
+			if (document.documentElement.scrollTop > 100) {
+				// 滚动条超过100显示
+				dispath(actionCreators.toggleTopShow(true)) 
+			} else {
+				dispath(actionCreators.toggleTopShow(false)) 
+				
+			}
 		}
 })
 

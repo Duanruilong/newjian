@@ -26,6 +26,12 @@ export const getHomeinfo =()=>{
 	}
 }
 
+// 返回顶部
+export const toggleTopShow=(show)=>({
+	type: constants.TOGGLE_SCROLL_TOP,
+	show
+})
+
 // 加载更多
 
 export const getMoreList = (page) =>{
