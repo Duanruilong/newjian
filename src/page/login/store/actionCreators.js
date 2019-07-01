@@ -17,7 +17,7 @@ export const login = (accout, password) => {
 			const result = res.data.data;
 			if (result) {
 				dispatch(changeLogin())
-			} else {
+			}else {
 				alert('登陆失败')
 			}
 		})

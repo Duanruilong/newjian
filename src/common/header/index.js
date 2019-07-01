@@ -1,11 +1,12 @@
 import React, { Component }  from 'react';
 import {connect} from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import {actionCreators} from './store'
 import {HeaderWrapper,Logo,Nav,NavItem,NavSearch,Addition,Button,SearchWrapper,SearchInfo,SearchInfoTitle,SearchInfoSwitch,
 	SearchInfoList,
 	SearchInfoItem,} from './style';
 import { Link } from 'react-router-dom';
+import { actionCreators } from './store';
+import { actionCreators as loginActionCreators } from '../../page/login/store'
 
 
 class Header extends Component {
@@ -49,7 +50,7 @@ class Header extends Component {
   }
 
     render(){
-      const { handleInputBlur, handleInputFocus,list} = this.props;
+      const { handleInputBlur, handleInputFocus,list,login,logout} = this.props;
       const newList = list.toJS(); // immutable对象 转换
 
       return(
@@ -60,7 +61,11 @@ class Header extends Component {
           <Nav>
             <NavItem className='left active'>首页</NavItem>
             <NavItem className='left'>下载App</NavItem>
-            <NavItem className='right'>登录</NavItem>
+            {
+						login ? 
+							<NavItem onClick={logout} className='right'>退出</NavItem> : 
+							<Link to='/login'><NavItem className='right'>登陆</NavItem></Link>
+					}
             <NavItem className='right'>
               <i className="iconfont">&#xe636;</i>
             </NavItem>
@@ -105,7 +110,9 @@ const mapStateToProps = (state) => {
     list:state.getIn(['header','list']),
     mouseIn: state.getIn(['header', 'mouseIn']),
     page: state.getIn(['header', 'page']),
-		totalPage: state.getIn(['header', 'totalPage']),
+    totalPage: state.getIn(['header', 'totalPage']),
+    login: state.getIn(['login', 'login'])
+
   }
 }
 
@@ -141,6 +148,9 @@ const mapDispathToProps = (dispatch, ownProps) => {
       } else {
         dispatch(actionCreators.changePage(1));
       }
+    },
+    logout(){
+      dispatch(loginActionCreators.logout())
     }
   }
 }
