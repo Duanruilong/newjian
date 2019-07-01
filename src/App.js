@@ -6,6 +6,8 @@ import Header from './common/header/index';
 import store from './store/index';
 import Home from './page/home';
 import Detail from './page/detail/index';
+// import Login from './pages/login';
+// import Write from './pages/write';
 
 class App extends Component {
   render() {
@@ -16,7 +18,7 @@ class App extends Component {
             <Header />
             <Route path='/' exact component={Home}></Route>
             {/* <Route path='/login' exact component={Home}></Route> */}
-            {/* <Route path='/' exact component={Home}></Route> */}
+            {/* <Route path='/write' exact component={Write}></Route> */}
             <Route path='/detail/:id' exact component={Detail}></Route>
 
           </div>
